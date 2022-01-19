@@ -1,3 +1,5 @@
+import { Header } from '@components/Header';
+
 export function Main() {
-  return <h1>Hello, World!</h1>;
+  return <Header />;
 }
