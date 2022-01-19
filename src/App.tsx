@@ -1,7 +1,13 @@
-import { Router } from './routes';
+import { Dashboard } from '@components/Dashboard';
+import { Header } from '@components/Header';
 
 import './styles/global.scss';
 
 export function App() {
-  return <Router />;
+  return (
+    <>
+      <Header />
+      <Dashboard />
+    </>
+  );
 }

@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: -8rem;
+}
+
+.content {
+  background-color: var(--shape);
+  padding: 1.5rem 2rem;
+  border-radius: 0.25rem;
+  color: var(--text-title);
+}
+
+.hightlight {
+  @extend .content;
+  background-color: var(--green);
+  color: #fff;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.value {
+  display: block;
+  margin-top: 1rem;
+  font-size: 2rem;
+  font-weight: 500;
+  line-height: 3rem;
+}
