@@ -1,6 +1,18 @@
+import { useEffect } from 'react';
+import noops from 'lodash.noop';
+
+import { api } from '@config/client';
+
 import styles from './styles.module.scss';
 
 export function TransactionsTable() {
+  useEffect(() => {
+    api
+      .get(`/transactions`)
+      .then(response => response.data)
+      .catch(noops);
+  }, []);
+
   return (
     <div className={styles.container}>
       <table className={styles.tableWrap}>
