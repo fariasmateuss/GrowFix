@@ -4,6 +4,7 @@ import noops from 'lodash.noop';
 import { api } from '@config/client';
 import { formatPrice } from '@utils/formatPrice';
 
+import { formatDateTime } from '@utils/dateTimeFormat';
 import { Transactions } from './types';
 import styles from './styles.module.scss';
 
@@ -35,7 +36,7 @@ export function TransactionsTable() {
                 {formatPrice(transaction.amount)}
               </td>
               <td>{transaction.category}</td>
-              <td>{transaction.createdAt}</td>
+              <td>{formatDateTime(new Date(transaction.createdAt))}</td>
             </tr>
           ))}
         </tbody>
