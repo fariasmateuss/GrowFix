@@ -1,15 +1,19 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import noops from 'lodash.noop';
 
 import { api } from '@config/client';
+import { formatPrice } from '@utils/formatPrice';
 
+import { Transactions } from './types';
 import styles from './styles.module.scss';
 
 export function TransactionsTable() {
+  const [transactions, setTransactions] = useState<Transactions[]>([]);
+
   useEffect(() => {
     api
       .get(`/transactions`)
-      .then(response => response.data)
+      .then(response => setTransactions(response.data.transactions))
       .catch(noops);
   }, []);
 
@@ -24,21 +28,16 @@ export function TransactionsTable() {
         </thead>
 
         <tbody>
-          <tr>
-            <td>Rent</td>
-            <td className="withdraw">-$2.000</td>
-            <td>Home</td>
-            <td>25/05/2022</td>
-          </tr>
-        </tbody>
-
-        <tbody>
-          <tr>
-            <td>Hamburger</td>
-            <td className="deposit">$12.000</td>
-            <td>Food</td>
-            <td>20/05/2022</td>
-          </tr>
+          {transactions.map(transaction => (
+            <tr key={transaction.id}>
+              <td>{transaction.title}</td>
+              <td className={transaction.type}>
+                {formatPrice(transaction.amount)}
+              </td>
+              <td>{transaction.category}</td>
+              <td>{transaction.createdAt}</td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>
