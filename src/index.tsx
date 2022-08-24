@@ -4,8 +4,8 @@ import { makeServer } from '@services/miragejs';
 
 import { App } from './App';
 
-if (process.env.NODE_ENV === `development`) {
-  makeServer({ environment: `development` });
+if (process.env.NODE_ENV === `development` || process.env.REACT_APP_DEMO) {
+  makeServer();
 }
 
 render(<App />, document.getElementById(`root`));
