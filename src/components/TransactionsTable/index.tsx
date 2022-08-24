@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react';
-import noops from 'lodash.noop';
-
-import { api } from '@config/client';
 import { formatPrice } from '@utils/formatPrice';
-
 import { formatDateTime } from '@utils/dateTimeFormat';
-import { Transactions } from './types';
+import { useTransactionState } from '@contexts/Transactions/TransactionsContext';
+
 import styles from './styles.module.scss';
 
 export function TransactionsTable() {
-  const [transactions, setTransactions] = useState<Transactions[]>([]);
-
-  useEffect(() => {
-    api
-      .get(`/transactions`)
-      .then(response => setTransactions(response.data.transactions))
-      .catch(noops);
-  }, []);
+  const { transactions } = useTransactionState();
 
   return (
     <div className={styles.container}>

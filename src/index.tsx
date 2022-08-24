@@ -1,3 +1,6 @@
+/* eslint-disable import/no-unresolved */
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import { render } from 'react-dom';
 
 import { makeServer } from '@services/miragejs';
