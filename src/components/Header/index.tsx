@@ -8,7 +8,7 @@ export function Header({ onOpenNewTransactionModal }: HeaderProps) {
   return (
     <header className={styles.container}>
       <div className={styles.content}>
-        <img src={logo} alt="Logo DtMoney" />
+        <img className={styles.logo} src={logo} alt="Logo GrowFix" />
 
         <button
           type="button"
