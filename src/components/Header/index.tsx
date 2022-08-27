@@ -1,8 +1,8 @@
 import logo from '@assets/logo.svg';
 
-import styles from './styles.module.scss';
-
 import { HeaderProps } from './types';
+
+import styles from './styles.module.scss';
 
 export function Header({ onOpenNewTransactionModal }: HeaderProps) {
   return (

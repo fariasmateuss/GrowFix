@@ -1,9 +1,9 @@
 import { FormEvent, useState } from 'react';
 import Modal from 'react-modal';
 
-import close from '@assets/close.svg';
-import imcome from '@assets/income.svg';
-import outcome from '@assets/outcome.svg';
+import Close from '@assets/close.svg';
+import Income from '@assets/income.svg';
+import Outcome from '@assets/outcome.svg';
 
 import { useTransactionDispatch } from '@contexts/Transactions/TransactionsContext';
 import { NewTransationModalProps } from './types';
@@ -50,7 +50,7 @@ export function NewTransactionModal({
         onClick={onRequestClose}
         className={styles.modalClose}
       >
-        <img src={close} alt="Close" />
+        <img src={Close} alt="Close" />
       </button>
 
       <form onSubmit={handleCreateNewTransaction}>
@@ -73,7 +73,7 @@ export function NewTransactionModal({
             type="button"
             onClick={() => setType(`deposit`)}
           >
-            <img src={imcome} alt="Income" />
+            <img src={Income} alt="Incoming" />
             <span>Income</span>
           </button>
           <button
@@ -81,7 +81,7 @@ export function NewTransactionModal({
             type="button"
             onClick={() => setType(`withdraw`)}
           >
-            <img src={outcome} alt="Outcome" />
+            <img src={Outcome} alt="Outcome" />
             <span>Outcome</span>
           </button>
         </div>
