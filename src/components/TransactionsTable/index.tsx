@@ -21,7 +21,7 @@ export function TransactionsTable() {
           {transactions.map(transaction => (
             <tr key={transaction.id}>
               <td>{transaction.title}</td>
-              <td className={transaction.type}>
+              <td className={styles[transaction.type]}>
                 {formatPrice(transaction.amount)}
               </td>
               <td>{transaction.category}</td>

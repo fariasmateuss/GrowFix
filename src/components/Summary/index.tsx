@@ -44,7 +44,7 @@ export function Summary() {
           <img src={outcome} aria-hidden alt="Out come" />
         </header>
         <strong className={styles.value}>
-          - {formatPrice(summary.withdraw)}
+          {formatPrice(summary.withdraw)}
         </strong>
       </div>
 

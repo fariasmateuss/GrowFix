@@ -1,5 +1,5 @@
 .container {
-  background-color: var(--blue);
+  background-color: var(--gray-900);
 }
 
 .content {
@@ -19,12 +19,15 @@
 
 .button {
   font-size: 1rem;
-  color: #fff;
-  background-color: var(--blue-light);
+  color: var(--shape);
+  font-weight: bold;
+  background-color: var(--green-500);
   border: 0;
   padding: 0 2rem;
   border-radius: 0.25rem;
   height: 3rem;
+  line-height: 160%;
+  
   cursor: pointer;
 
   transition: filter 0.2s;
