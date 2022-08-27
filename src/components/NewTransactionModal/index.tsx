@@ -6,7 +6,7 @@ import Income from '@assets/income.svg';
 import Outcome from '@assets/outcome.svg';
 
 import { useTransactionDispatch } from '@contexts/Transactions/TransactionsContext';
-import { NewTransationModalProps } from './types';
+import { NewTransationModalProps, TransactionType } from './types';
 import styles from './styles.module.scss';
 
 Modal.setAppElement(`#root`);
@@ -18,7 +18,7 @@ export function NewTransactionModal({
   const [title, setTitle] = useState(``);
   const [amount, setAmount] = useState(0);
   const [category, setCategory] = useState(``);
-  const [type, setType] = useState(`deposit`);
+  const [type, setType] = useState<TransactionType>(`deposit`);
   const { createTransaction } = useTransactionDispatch();
 
   const handleCreateNewTransaction = async (event: FormEvent) => {
@@ -69,7 +69,9 @@ export function NewTransactionModal({
         />
         <div className={styles.transationTypeContainer}>
           <button
-            className={styles.transationsTypeButton}
+            className={
+              type === `deposit` ? styles[type] : styles.transactionTypeButton
+            }
             type="button"
             onClick={() => setType(`deposit`)}
           >
@@ -77,7 +79,9 @@ export function NewTransactionModal({
             <span>Income</span>
           </button>
           <button
-            className={styles.transationsTypeButton}
+            className={
+              type === `withdraw` ? styles[type] : styles.transactionTypeButton
+            }
             type="button"
             onClick={() => setType(`withdraw`)}
           >
