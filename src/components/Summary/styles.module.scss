@@ -6,16 +6,16 @@
 }
 
 .content {
-  background-color: var(--shape);
+  background-color: var(--gray-600);
   padding: 1.5rem 2rem;
   border-radius: 0.25rem;
-  color: var(--text-title);
+  color: var(--gray-100);
 }
 
 .hightlight {
   @extend .content;
-  background-color: var(--green);
-  color: #fff;
+  background-color: var(--green-700);
+  color: var(--gray-100);
 }
 
 .header {
