@@ -1,10 +1,13 @@
 .container {
-  margin-top: 4rem;
+  width: 1120px;
+  max-width: 100%;
+  margin: 4rem auto 0;
 }
 
 .tableWrap {
   width: 100%;
-  border-spacing: 0.5rem;
+  border-spacing: 0 0.5rem;
+  border-collapse: separate;
 
   th {
     color: var(--gray-500);
@@ -19,11 +22,15 @@
     border: 0;
     background: var(--gray-700);
     color: var(--gray-300);
-    border-radius: 0.25rem;
-
 
     &:first-child {
-      color: var(--gray-300);
+      border-top-left-radius: 6px;
+      border-bottom-left-radius: 6px;
+    }
+
+    &:last-child {
+      border-top-right-radius: 6px;
+      border-bottom-right-radius: 6px;
     }
 
     &.deposit {
