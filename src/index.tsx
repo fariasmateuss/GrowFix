@@ -4,7 +4,9 @@ import ReactDOM from 'react-dom/client';
 import { makeServer } from '@/services/miragejs';
 import { App } from './App';
 
-if (process.env.NODE_ENV === `development` || process.env.REACT_APP_DEMO) {
+const appDemo = import.meta.env.VITE_APP_DEMO;
+
+if (appDemo) {
   makeServer();
 }
 
