@@ -4,7 +4,7 @@ export function makeServer({ environment = `development` } = {}) {
   return createServer({
     environment,
     models: {
-      transaction: Model,
+      transactions: Model,
     },
     seeds(server) {
       server.db.loadData({
@@ -25,18 +25,32 @@ export function makeServer({ environment = `development` } = {}) {
             amount: 1100,
             createdAt: new Date(`2021-02-12 09:00:00`),
           },
+          {
+            id: 3,
+            title: `Freelancer Node.js`,
+            type: `deposit`,
+            category: `Dev`,
+            amount: 7000,
+            createdAt: new Date(`2021-02-12 09:00:00`),
+          },
         ],
       });
     },
     routes() {
       this.namespace = `api`;
 
-      this.get(`/transactions`, () => this.schema.all(`transaction`));
+      this.get(`/transactions`, schema => schema.all(`transactions`));
+
+      this.get(`/transactions/:title`, (schema, request) => {
+        const { title } = request.params;
+
+        return schema.find(`transactions`, title);
+      });
 
       this.post(`/transactions`, (schema, request) => {
         const data = JSON.parse(request.requestBody);
 
-        return schema.create(`transaction`, data);
+        return schema.create(`1`, data);
       });
     },
   });

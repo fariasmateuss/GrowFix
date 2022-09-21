@@ -4,11 +4,7 @@ import ReactDOM from 'react-dom/client';
 import { makeServer } from '@/services/miragejs';
 import { App } from './App';
 
-const appDemo = import.meta.env.VITE_APP_DEMO;
-
-if (appDemo) {
-  makeServer();
-}
+makeServer();
 
 ReactDOM.createRoot(document.getElementById(`root`) as HTMLElement).render(
   <React.StrictMode>
