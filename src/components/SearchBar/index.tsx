@@ -3,7 +3,7 @@ import styles from './styles.module.scss';
 
 export function SearchBar() {
   return (
-    <form className={styles.searchBar} action="">
+    <form className={styles.searchBar}>
       <input
         className={styles.searchBarInput}
         type="search"
