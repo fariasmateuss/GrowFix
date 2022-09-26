@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.8",
+    "@radix-ui/react-radio-group": "^1.0.0",
     "@types/node": "^18.7.13",
     "axios": "^0.27.2",
     "lodash.noop": "^3.0.1",
