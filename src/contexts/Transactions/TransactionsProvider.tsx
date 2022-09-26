@@ -14,6 +14,15 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
     api.get(`/transactions`).then(response => setTransactions(response.data));
   }, []);
 
+  const getTransaction = async (query?: string) => {
+    const response = await api.get(`/transactions`, {
+      params: { q: query },
+    });
+    const data = await response.data;
+
+    setTransactions(data);
+  };
+
   async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post(`/transactions`, {
       ...transactionInput,
@@ -35,8 +44,9 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
   const transactionDispatch = useMemo(
     () => ({
       createTransaction,
+      getTransaction,
     }),
-    [createTransaction],
+    [createTransaction, getTransaction],
   );
 
   return (

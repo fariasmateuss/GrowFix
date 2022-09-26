@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, SubmitHandler } from 'react-hook-form';
 import * as RadioGroup from '@radix-ui/react-radio-group';
 import Modal from 'react-modal';
 
@@ -31,7 +31,9 @@ export function NewTransactionModal({
     schema: newTransactionFormSchema,
   });
 
-  const handleCreateNewTransaction = async (data: NewTransactionFormValues) => {
+  const handleCreateNewTransaction: SubmitHandler<
+    NewTransactionFormValues
+  > = async data => {
     const { title, amount, category, type } = data;
 
     await createTransaction({

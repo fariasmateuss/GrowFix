@@ -2,6 +2,7 @@ import Search from '@assets/search.svg';
 import { Form } from '@components/Form';
 import { useForm } from '@hooks/useForm';
 
+import { useTransactionDispatch } from '@contexts/Transactions/TransactionsContext';
 import { searchFormSchema } from './schemas';
 import { SearchFormValues } from './types';
 import styles from './styles.module.scss';
@@ -11,8 +12,12 @@ export function SearchBar() {
     schema: searchFormSchema,
   });
 
+  const { getTransaction } = useTransactionDispatch();
+
   const handleSearchTransactions = async (data: SearchFormValues) => {
-    console.log(data);
+    const { query } = data;
+
+    await getTransaction(query);
   };
 
   return (
