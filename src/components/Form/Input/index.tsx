@@ -1,5 +1,5 @@
 import { forwardRef } from 'react';
-import { FieldError } from '@components/Form';
+import { FieldError } from '../FieldError';
 
 import { InputProps } from './types';
 
