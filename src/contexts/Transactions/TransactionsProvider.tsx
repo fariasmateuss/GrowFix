@@ -16,7 +16,11 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
 
   const getTransaction = async (query?: string) => {
     const response = await api.get(`/transactions`, {
-      params: { q: query },
+      params: {
+        q: query,
+        _sort: `createdAt`,
+        _order: `desc`,
+      },
     });
     const data = await response.data;
 
