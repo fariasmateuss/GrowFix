@@ -1,5 +1,5 @@
 {
-  "transactinos": [
+  "transactions": [
     {
       "id": 1,
       "title": "Freelancer React.js",
@@ -23,6 +23,38 @@
       "category": "Dev",
       "amount": 7000,
       "createdAt": "2022-07-29T19:36:44.505Z"
+    },
+    {
+      "title": "Connect",
+      "amount": 5000,
+      "category": "Job",
+      "type": "deposit",
+      "createdAt": "2022-09-26T04:28:12.040Z",
+      "id": 4
+    },
+    {
+      "title": "Game of Steam",
+      "amount": 230,
+      "category": "Fun",
+      "type": "deposit",
+      "createdAt": "2022-09-26T04:29:41.973Z",
+      "id": 5
+    },
+    {
+      "title": "God Of War",
+      "amount": 300,
+      "category": "Steam",
+      "type": "withdraw",
+      "createdAt": "2022-09-26T05:08:41.145Z",
+      "id": 6
+    },
+    {
+      "title": "Its take two",
+      "amount": 120,
+      "category": "Steam",
+      "type": "withdraw",
+      "createdAt": "2022-09-26T05:22:25.074Z",
+      "id": 7
     }
   ]
 }

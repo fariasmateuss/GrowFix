@@ -15,4 +15,5 @@ export type TransactionStateContextData = {
 
 export type TransactionDispatchContextData = {
   createTransaction: (transactionInput: TransactionInput) => Promise<void>;
+  getTransaction: (query: string) => Promise<void>;
 };

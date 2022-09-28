@@ -11,12 +11,19 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
   const [transactions, setTransactions] = useState<TransactionsProps[]>([]);
 
   useEffect(() => {
-    api
-      .get(`/transactions`)
-      .then(response => setTransactions(response.data.transactions));
+    api.get(`/transactions`).then(response => setTransactions(response.data));
   }, []);
 
-  async function handleCreateTransaction(transactionInput: TransactionInput) {
+  const getTransaction = async (query?: string) => {
+    const response = await api.get(`/transactions`, {
+      params: { q: query },
+    });
+    const data = await response.data;
+
+    setTransactions(data);
+  };
+
+  async function createTransaction(transactionInput: TransactionInput) {
     const response = await api.post(`/transactions`, {
       ...transactionInput,
       createdAt: new Date(),
@@ -36,9 +43,10 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
 
   const transactionDispatch = useMemo(
     () => ({
-      createTransaction: handleCreateTransaction,
+      createTransaction,
+      getTransaction,
     }),
-    [handleCreateTransaction],
+    [createTransaction, getTransaction],
   );
 
   return (

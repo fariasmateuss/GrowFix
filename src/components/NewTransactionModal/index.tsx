@@ -1,12 +1,21 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
+import { Controller, SubmitHandler } from 'react-hook-form';
+import * as RadioGroup from '@radix-ui/react-radio-group';
 import Modal from 'react-modal';
 
 import Close from '@assets/close.svg';
 import Income from '@assets/income.svg';
 import Outcome from '@assets/outcome.svg';
-
 import { useTransactionDispatch } from '@contexts/Transactions/TransactionsContext';
-import { NewTransationModalProps, TransactionType } from './types';
+import { useForm } from '@hooks/useForm';
+import { Form } from '@components/Form';
+
+import { newTransactionFormSchema } from './schemas';
+import {
+  NewTransationModalProps,
+  NewTransactionFormValues,
+  TransactionType,
+} from './types';
 import styles from './styles.module.scss';
 
 Modal.setAppElement(`#root`);
@@ -15,14 +24,17 @@ export function NewTransactionModal({
   isOpen,
   onRequestClose,
 }: NewTransationModalProps) {
-  const [title, setTitle] = useState(``);
-  const [amount, setAmount] = useState(0);
-  const [category, setCategory] = useState(``);
-  const [type, setType] = useState<TransactionType>(`deposit`);
+  const [transactionType, setTransactionType] =
+    useState<TransactionType>(`deposit`);
   const { createTransaction } = useTransactionDispatch();
+  const form = useForm({
+    schema: newTransactionFormSchema,
+  });
 
-  const handleCreateNewTransaction = async (event: FormEvent) => {
-    event.preventDefault();
+  const handleCreateNewTransaction: SubmitHandler<
+    NewTransactionFormValues
+  > = async data => {
+    const { title, amount, category, type } = data;
 
     await createTransaction({
       title,
@@ -30,12 +42,6 @@ export function NewTransactionModal({
       category,
       type,
     });
-
-    setTitle(``);
-    setAmount(0);
-    setCategory(``);
-    setType(`deposit`);
-    onRequestClose();
   };
 
   return (
@@ -53,54 +59,76 @@ export function NewTransactionModal({
         <img src={Close} alt="Close" />
       </button>
 
-      <form onSubmit={handleCreateNewTransaction}>
+      <Form form={form} onSubmit={values => handleCreateNewTransaction(values)}>
         <h2 className={styles.heading}>Register transation</h2>
         <input
           className={styles.modalInput}
           type="text"
           placeholder="Title"
-          onChange={e => setTitle(e.target.value)}
+          required
+          {...form.register(`title`)}
         />
         <input
           className={styles.modalInput}
-          type="text"
+          type="number"
           placeholder="Value"
-          onChange={e => setAmount(Number(e.target.value))}
+          required
+          {...form.register(`amount`, { valueAsNumber: true })}
         />
-        <div className={styles.transationTypeContainer}>
-          <button
-            className={
-              type === `deposit` ? styles[type] : styles.transactionTypeButton
-            }
-            type="button"
-            onClick={() => setType(`deposit`)}
-          >
-            <img src={Income} alt="Incoming" />
-            <span>Income</span>
-          </button>
-          <button
-            className={
-              type === `withdraw` ? styles[type] : styles.transactionTypeButton
-            }
-            type="button"
-            onClick={() => setType(`withdraw`)}
-          >
-            <img src={Outcome} alt="Outcome" />
-            <span>Outcome</span>
-          </button>
-        </div>
+        <Controller
+          control={form.control}
+          name="type"
+          render={({ field }) => (
+            <RadioGroup.Root
+              className={styles.transationTypeContainer}
+              onValueChange={field.onChange}
+              value={field.value}
+            >
+              <RadioGroup.Item
+                className={
+                  transactionType === `deposit`
+                    ? styles[transactionType]
+                    : styles.transactionTypeButton
+                }
+                value="deposit"
+                type="button"
+                onClick={() => setTransactionType(`deposit`)}
+              >
+                <img src={Income} alt="Incoming" />
+                <span>Income</span>
+              </RadioGroup.Item>
+              <RadioGroup.Item
+                className={
+                  transactionType === `withdraw`
+                    ? styles[transactionType]
+                    : styles.transactionTypeButton
+                }
+                value="withdraw"
+                type="button"
+                onClick={() => setTransactionType(`withdraw`)}
+              >
+                <img src={Outcome} alt="Outcome" />
+                <span>Outcome</span>
+              </RadioGroup.Item>
+            </RadioGroup.Root>
+          )}
+        />
         <input
           className={styles.modalInput}
           type="text"
           placeholder="Categories"
-          value={category}
-          onChange={e => setCategory(e.target.value)}
+          required
+          {...form.register(`category`)}
         />
 
-        <button className={styles.register} type="submit">
+        <button
+          className={styles.register}
+          type="submit"
+          disabled={form.formState.isSubmitting}
+        >
           Register
         </button>
-      </form>
+      </Form>
     </Modal>
   );
 }
