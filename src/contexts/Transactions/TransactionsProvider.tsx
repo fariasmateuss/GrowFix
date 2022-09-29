@@ -1,38 +1,50 @@
+import {
+  PropsWithChildren,
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+} from 'react';
+
 import { api } from '@config/client';
-import { PropsWithChildren, useEffect, useMemo, useState } from 'react';
 
 import {
   TransactionDispatchProvider,
   TransactionStateProvider,
 } from './TransactionsContext';
-import { TransactionInput, TransactionsProps } from './types';
+import { TransactionInput, Transaction } from './types';
 
 export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
-  const [transactions, setTransactions] = useState<TransactionsProps[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
     api.get(`/transactions`).then(response => setTransactions(response.data));
   }, []);
 
-  const getTransaction = async (query?: string) => {
+  const getTransaction = useCallback(async (query?: string) => {
     const response = await api.get(`/transactions`, {
-      params: { q: query },
+      params: {
+        q: query,
+        _sort: `createdAt`,
+        _order: `desc`,
+      },
     });
     const data = await response.data;
 
     setTransactions(data);
-  };
+  }, []);
 
-  async function createTransaction(transactionInput: TransactionInput) {
-    const response = await api.post(`/transactions`, {
-      ...transactionInput,
-      createdAt: new Date(),
-    });
+  const createTransaction = useCallback(
+    async (transactionInput: TransactionInput) => {
+      const response = await api.post(`/transactions`, {
+        ...transactionInput,
+        createdAt: new Date(),
+      });
 
-    const { transaction } = response.data;
-
-    setTransactions([...transactions, transaction]);
-  }
+      setTransactions(prevState => [response.data, ...prevState]);
+    },
+    [],
+  );
 
   const transactionState = useMemo(
     () => ({

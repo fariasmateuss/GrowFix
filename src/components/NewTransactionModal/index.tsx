@@ -42,6 +42,8 @@ export function NewTransactionModal({
       category,
       type,
     });
+
+    form.reset();
   };
 
   return (

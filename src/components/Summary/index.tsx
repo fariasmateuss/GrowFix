@@ -1,32 +1,13 @@
 import Income from '@assets/income.svg';
 import Outcome from '@assets/outcome.svg';
 import Wallet from '@assets/wallet.svg';
-import { useTransactionState } from '@contexts/Transactions/TransactionsContext';
+import { useSummary } from '@hooks/useSummary';
 import { formatPrice } from '@utils/formatPrice';
 
 import styles from './styles.module.scss';
 
 export function Summary() {
-  const { transactions } = useTransactionState();
-
-  const summary = transactions.reduce(
-    (acc, transaction) => {
-      if (transaction.type === `deposit`) {
-        acc.deposit += transaction.amount;
-        acc.total += transaction.amount;
-      } else {
-        acc.withdraw += transaction.amount;
-        acc.total -= transaction.amount;
-      }
-
-      return acc;
-    },
-    {
-      deposit: 0,
-      withdraw: 0,
-      total: 0,
-    },
-  );
+  const { summary } = useSummary();
 
   return (
     <div className={styles.container}>
