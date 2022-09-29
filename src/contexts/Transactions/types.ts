@@ -1,4 +1,4 @@
-export type TransactionsProps = {
+export type Transaction = {
   id: number;
   title: string;
   amount: number;
@@ -7,10 +7,10 @@ export type TransactionsProps = {
   createdAt: string;
 };
 
-export type TransactionInput = Omit<TransactionsProps, 'id' | 'createdAt'>;
+export type TransactionInput = Omit<Transaction, 'id' | 'createdAt'>;
 
 export type TransactionStateContextData = {
-  transactions: TransactionsProps[];
+  transactions: Transaction[];
 };
 
 export type TransactionDispatchContextData = {
