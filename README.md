@@ -1,9 +1,7 @@
-<p align="center">
-  <img src="./src/components/logo.svg" />
-</p>
+<img src="./docs/resources/preview.png" />
 
 <p align="center">
-  Profile page, but for developers.
+  GrowFix: Financial Management.
 </p>
 
 ## Tech stack
