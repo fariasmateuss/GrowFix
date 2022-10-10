@@ -1,26 +1,18 @@
 {
   "transactions": [
     {
-      "id": 1,
-      "title": "Freelancer React.js",
-      "type": "deposit",
-      "category": "Dev",
-      "amount": 6000,
-      "createdAt": "2022-07-29T19:36:44.505Z"
-    },
-    {
       "id": 2,
-      "title": "Rent",
+      "title": "God Of War",
       "type": "withdraw",
-      "category": "Home",
-      "amount": 1100,
+      "category": "Steam",
+      "amount": 210,
       "createdAt": "2022-07-29T19:36:44.505Z"
     },
     {
       "id": 3,
       "title": "Freelancer Node.js",
       "type": "deposit",
-      "category": "Dev",
+      "category": "Job",
       "amount": 7000,
       "createdAt": "2022-07-29T19:36:44.505Z"
     }
