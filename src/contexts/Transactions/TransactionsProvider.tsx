@@ -5,6 +5,7 @@ import {
   useState,
   useCallback,
 } from 'react';
+import noop from 'lodash.noop';
 
 import { api } from '@config/client';
 
@@ -18,20 +19,35 @@ export function TransactionProvider({ children }: PropsWithChildren<unknown>) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
-    api.get(`/transactions`).then(response => setTransactions(response.data));
+    const subscription = new AbortController();
+
+    api
+      .get(`/transactions`, {
+        signal: subscription.signal,
+      })
+      .then(response => setTransactions(response.data))
+      .catch(noop);
+
+    return () => subscription.abort();
   }, []);
 
   const getTransaction = useCallback(async (query?: string) => {
-    const response = await api.get(`/transactions`, {
-      params: {
-        q: query,
-        _sort: `createdAt`,
-        _order: `desc`,
-      },
-    });
-    const data = await response.data;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 2000);
 
-    setTransactions(data);
+    await api
+      .get(`/transactions`, {
+        params: {
+          q: query,
+          _sort: `createdAt`,
+          _order: `desc`,
+        },
+      })
+      .then(response => {
+        clearTimeout(timeoutId);
+        setTransactions(response.data);
+      })
+      .catch(noop);
   }, []);
 
   const createTransaction = useCallback(
